@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Courier New', monospace;
+            background: #0a0a12;
+        }
+        .clock-box{
+            text-align: center;
+            padding: 50px 70px;
+            border: 2px solid #00ffcc;
+            border-radius: 20px;
+            box-shadow: 
+            0 0 10px #00ffcc,
+            0 0 25px  #00ffcc,
+            0 0 50px rgba(0,255,204,0.4),
+            insert 0 0 15px rgba(0,255,204,0.15);
+        }
+        #home{
+            font-size: 64px;
+            color: #00ffcc;
+            letter-spacing: 4px;
+            text-shadow: 
+            0 0 3px #00ffcc,
+            0 0 10px #00ffcc,
+            0 0 20px #00ffcc
+
+        }
+        #date{
+            margin-top: 15px;
+            font-size: 18px;
+            color: #7dffe0;
+            letter-spacing: 3px;
+            text-shadow: 0 0 8px rgba(125,225,224,0.6);
+        }
+        @media(max-width:480px){
+            .clock-box{
+                padding: 30px 25px;
+            }
+            #home{font-size: 38px;
+            }
+            #date{
+                font-size: 14px;
+            }
+            #ampm-text{
+                font-size: 20px;
+                vertical-align: middle;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="clock-box">
+    <h4 id="home"></h4>
+    <div id="date"></div>
+    </div>
+
+    <script>
+        var months=["January","February","March","April","May","June","July","August","September","October","November","December"]
+        var days=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+
+    function display(){
+            var today=new Date()
+            var hr=today.getHours()
+            var min=today.getMinutes()
+            var sec=today.getSeconds()
+            var ampm
+
+            if(hr>12){
+                hr=hr-12
+                ampm="PM"
+            }
+            
+            else if(hr==12){
+                ampm="PM"
+            }
+            else if(hr==0){
+                hr=12
+                ampm="AM"
+            }
+            else{
+                ampm="AM"
+            }
+            hr=hr<10?"0"+hr:hr
+            min=min<10?"0"+min:min
+            sec=sec<10?"0"+sec:sec
+
+            var a=document.getElementById("home")
+            a.innerHTML=hr+":"+min+":"+sec+" "+"<span id='ampm-text'>"+ampm+"</span>"
+           
+
+            var dateStr=days[today.getDay()]+","+today.getDate()+" "+
+                        months[today.getMonth()]+" "+today.getFullYear()
+            document.getElementById("date").innerText=dateStr
+        }
+
+        setInterval(display,1000)
+        display()
+    </script>
+</body>
+</html>
